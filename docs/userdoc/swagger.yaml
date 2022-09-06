@@ -1,0 +1,251 @@
+basePath: /
+definitions:
+  auth.AuthRequestBody:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  auth.AuthResponse:
+    properties:
+      id:
+        example: 1
+        format: int64
+        type: integer
+      name:
+        example: Admin
+        type: string
+      role:
+        example: admin
+        type: string
+      username:
+        example: admin
+        type: string
+    type: object
+  users.UpdateUserRequestBody:
+    properties:
+      name:
+        type: string
+      role:
+        type: string
+      username:
+        type: string
+    type: object
+  users.UserRequestBody:
+    properties:
+      name:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
+      username:
+        type: string
+    type: object
+  users.UserResponse:
+    properties:
+      created_at:
+        example: 04/09/2022
+        type: string
+      id:
+        example: 1
+        format: int64
+        type: integer
+      name:
+        example: Admin
+        type: string
+      role:
+        example: admin
+        type: string
+      username:
+        example: admin
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server server.
+  termsOfService: http://swagger.io/terms/
+  title: GO User API
+  version: "1.0"
+paths:
+  /api/auth:
+    post:
+      consumes:
+      - '*/*'
+      description: Login.
+      parameters:
+      - description: Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.AuthRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.AuthResponse'
+      summary: Login.
+      tags:
+      - Auth
+  /api/healthcheck:
+    get:
+      consumes:
+      - '*/*'
+      description: get the status of server.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Show the status of server.
+      tags:
+      - Healthcheck
+  /api/refresh-token:
+    get:
+      consumes:
+      - '*/*'
+      description: Refresh Token.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.AuthResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Refresh Token.
+      tags:
+      - Auth
+  /api/users:
+    get:
+      consumes:
+      - '*/*'
+      description: Get Users.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/users.UserResponse'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get Users.
+      tags:
+      - Users
+    post:
+      consumes:
+      - '*/*'
+      description: Add User.
+      parameters:
+      - description: Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/users.UserRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.UserResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Add User.
+      tags:
+      - Users
+  /api/users/{id}:
+    delete:
+      consumes:
+      - '*/*'
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: Delete User.
+      tags:
+      - Users
+    get:
+      consumes:
+      - '*/*'
+      description: Get User.
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/users.UserResponse'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get User.
+      tags:
+      - Users
+    put:
+      consumes:
+      - '*/*'
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/users.UpdateUserRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.UserResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Edit User.
+      tags:
+      - Users
+schemes:
+- http
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
