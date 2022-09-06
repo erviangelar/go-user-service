@@ -1,2 +1,2 @@
 # go-user-service
-Golang Learn
+Golang User Service
