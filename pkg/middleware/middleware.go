@@ -19,7 +19,7 @@ func AccessToken() gin.HandlerFunc {
 		}
 		role, err := jwt.ValidateAccessToken(tokenString)
 		if err != nil {
-			ctx.JSON(http.StatusUnauthorized, gin.H{"message": err.Error()})
+			ctx.JSON(http.StatusUnauthorized, gin.H{"message": "access token is not valid"})
 			ctx.Abort()
 			return
 		}

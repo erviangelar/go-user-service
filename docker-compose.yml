@@ -11,7 +11,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      DATABASE_URL: "postgres://postgres:postgrespw@127.0.0.1:49153/deall-jobs-user-api?sslmode=disable"
+      DATABASE_URL: "postgres://postgres:postgrespw@127.0.0.1:49154/deall-jobs-user-api?sslmode=disable"
       ACCESS_TOKEN_PRIVATE_KEY_PATH: "./pkg/key/access-private.pem"
       ACCESS_TOKEN_PUBLIC_KEY_PATH: "./pkg/key/access-public.pem"
       REFRESH_TOKEN_PRIVATE_KEY_PATH: "./pkg/key/refresh-private.pem"
