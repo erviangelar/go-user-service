@@ -10,11 +10,9 @@ COPY go.mod go.sum ./
 
 RUN go mod download
 
-COPY . .
-COPY /cmd .
+COPY . ./
 
-RUN go build -o /app
-
+RUN go build -o /user
 EXPOSE 3000
 
-CMD ["/app"]
+CMD ["/user"]

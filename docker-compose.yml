@@ -6,24 +6,26 @@ services:
     build: .
     depends_on:
       - database
-    links:
-      - database
+    # links:
+    #   - database
     ports:
       - 3000:3000
     environment:
-      DATABASE_URL: "postgres://postgres:postgrespw@localhost:49153/deall-jobs-user-api?sslmode=disable"
+      DATABASE_URL: "postgres://postgres:postgrespw@127.0.0.1:49153/deall-jobs-user-api?sslmode=disable"
       ACCESS_TOKEN_PRIVATE_KEY_PATH: "./pkg/key/access-private.pem"
       ACCESS_TOKEN_PUBLIC_KEY_PATH: "./pkg/key/access-public.pem"
       REFRESH_TOKEN_PRIVATE_KEY_PATH: "./pkg/key/refresh-private.pem"
       REFRESH_TOKEN_PUBLIC_KEY_PATH: "./pkg/key/refresh-public.pem"
       JWT_EXPIRATION: 30
       TokenHash: "JAZRQ3WS86ABKL5"
+    network_mode: "host"
   
   database:
     image: postgres:alpine
     container_name: database
+    network_mode: "host"
     environment:
       POSTGRES_PASSWORD: "postgrespw"
       POSTGRES_USER: "postgres"
     ports:
-      - 49153:49153
+      - 49154:5432
